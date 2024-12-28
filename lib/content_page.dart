@@ -1,4 +1,5 @@
 import 'package:celebrate_app/theme.dart';
+import 'package:celebrate_app/widget/button_primary.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:convert';
@@ -141,7 +142,34 @@ class _ContentPageState extends State<ContentPage> {
 
     Widget footer() {
       return Container(
-        child: Text('this will return as button'),
+        margin: EdgeInsets.only(
+          bottom: 50,
+          top: defaultMargin,
+          right: defaultMargin,
+          left: defaultMargin,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.face_3_rounded,
+              color: primaryColor,
+              size: 40,
+            ),
+            SizedBox(
+              width: 12,
+            ),
+            Expanded(child: ButtonPrimary()),
+            SizedBox(
+              width: 12,
+            ),
+            Icon(
+              Icons.share,
+              color: primaryColor,
+              size: 40,
+            )
+          ],
+        ),
       );
     }
 
