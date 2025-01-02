@@ -1,9 +1,11 @@
+import 'package:celebrate_app/provider/content_provider.dart';
 import 'package:celebrate_app/theme.dart';
 import 'package:celebrate_app/widget/button_primary.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:provider/provider.dart';
 
 class ContentPage extends StatefulWidget {
   const ContentPage({super.key});
@@ -13,48 +15,23 @@ class ContentPage extends StatefulWidget {
 }
 
 class _ContentPageState extends State<ContentPage> {
-  Map<String, dynamic>? jsonData;
-  List images = ['assets/sample.jpg', 'assets/sample.jpg', 'assets/sample.jpg'];
-  List<String> titles = ['title1', 'title2', 'title3'];
-  List<String> greetings = ['greeting1', 'greeting2', 'greeting3'];
-  String titleContent = '';
-  String greetingContent = '';
-
-  int currentIndex = 0;
-
-  Future<void> _loadJsonData() async {
-    final String response = await rootBundle.loadString('assets/data.json');
-    final data = json.decode(response);
-    setState(() {
-      jsonData = data;
-      greetingContent = jsonData?[greetings[0]] ?? '';
-      titleContent = jsonData?[titles[0]] ?? '';
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _loadJsonData();
-  }
-
   @override
   Widget build(BuildContext context) {
+    ContentProvider contentProvider = Provider.of<ContentProvider>(context);
+
     Widget indicator(int index) {
       return Container(
         margin: const EdgeInsets.symmetric(horizontal: 2),
-        width: currentIndex == index ? 30 : 10,
+        width: contentProvider.currentIndex == index ? 30 : 10,
         height: 10,
         decoration: BoxDecoration(
-            color: currentIndex == index ? primaryColor : c4Color,
+            color:
+                contentProvider.currentIndex == index ? primaryColor : c4Color,
             borderRadius: const BorderRadius.all(Radius.circular(10))),
       );
     }
 
     Widget header() {
-      int index = -1;
-
       return Column(
         children: [
           const SizedBox(
@@ -65,14 +42,10 @@ class _ContentPageState extends State<ContentPage> {
               initialPage: 0,
               viewportFraction: 1.0, // Mengatur lebar slide (95% dari layar)
               onPageChanged: (index, reason) {
-                setState(() {
-                  currentIndex = index;
-                  greetingContent = jsonData?[greetings[index]] ?? '';
-                  titleContent = jsonData?[titles[index]] ?? '';
-                });
+                contentProvider.updateContent(index);
               },
             ),
-            items: images
+            items: contentProvider.images
                 .map((image) => Container(
                       width: MediaQuery.of(context).size.width,
                       margin: EdgeInsets.symmetric(
@@ -94,10 +67,11 @@ class _ContentPageState extends State<ContentPage> {
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: images.map((e) {
-                index++;
-                return indicator(index);
-              }).toList())
+              children: contentProvider.images
+                  .asMap()
+                  .entries
+                  .map((entry) => indicator(entry.key))
+                  .toList()),
         ],
       );
     }
@@ -123,14 +97,14 @@ class _ContentPageState extends State<ContentPage> {
             child: Column(
               children: [
                 Text(
-                  titleContent,
+                  contentProvider.titleContent,
                   style: titleTextStyle.copyWith(fontSize: 18),
                 ),
                 const SizedBox(
                   height: 26,
                 ),
                 Text(
-                  greetingContent,
+                  contentProvider.greetingContent,
                   style: primaryTextStyle.copyWith(fontSize: 12),
                 ),
               ],
