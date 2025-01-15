@@ -1,4 +1,5 @@
 import 'package:celebrate_app/provider/content_provider.dart';
+import 'package:celebrate_app/share_page.dart';
 import 'package:celebrate_app/theme.dart';
 import 'package:celebrate_app/widget/button_primary.dart';
 import 'package:flutter/material.dart';
@@ -133,7 +134,18 @@ class _ContentPageState extends State<ContentPage> {
             SizedBox(
               width: 12,
             ),
-            Expanded(child: ButtonPrimary()),
+            Expanded(child: ButtonPrimary(
+              ontap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SharePage(
+                            title: contentProvider.titleContent,
+                            greeting: contentProvider.greetingContent,
+                            image: contentProvider
+                                .images[contentProvider.currentIndex])));
+              },
+            )),
             SizedBox(
               width: 12,
             ),
