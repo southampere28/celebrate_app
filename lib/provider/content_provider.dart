@@ -10,6 +10,7 @@ class ContentProvider with ChangeNotifier {
   ];
   final List<String> _titles = ['title1', 'title2', 'title3'];
   final List<String> _greetings = ['greeting1', 'greeting2', 'greeting3'];
+  final String _senderName = "Pramudya Putra";
 
   String _titleContent = '';
   String _greetingContent = '';
@@ -21,6 +22,7 @@ class ContentProvider with ChangeNotifier {
   String get titleContent => _titleContent;
   String get greetingContent => _greetingContent;
   int get currentIndex => _currentIndex;
+  String get senderName => _senderName;
 
   // Method to load JSON data
   Future<void> loadJsonData() async {
