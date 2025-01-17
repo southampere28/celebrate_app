@@ -134,7 +134,8 @@ class _ContentPageState extends State<ContentPage> {
             SizedBox(
               width: 12,
             ),
-            Expanded(child: ButtonPrimary(
+            Expanded(
+                child: ButtonPrimary(
               ontap: () {
                 Navigator.push(
                     context,
@@ -145,6 +146,7 @@ class _ContentPageState extends State<ContentPage> {
                             image: contentProvider
                                 .images[contentProvider.currentIndex])));
               },
+              title: 'Berikutnya',
             )),
             SizedBox(
               width: 12,
