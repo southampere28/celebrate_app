@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ButtonPrimary extends StatelessWidget {
-  final VoidCallback ontap; // Properti harus menggunakan VoidCallback
+  final VoidCallback ontap;
+  final String title;
 
-  const ButtonPrimary({super.key, required this.ontap});
-
+  const ButtonPrimary({super.key, required this.ontap, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class ButtonPrimary extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12))),
         child: Text(
-          'Berikutnya',
+          title,
           style: buttonTextStyle.copyWith(fontWeight: semiBold, fontSize: 16),
         ),
       ),
