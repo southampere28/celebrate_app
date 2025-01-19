@@ -3,6 +3,8 @@ import 'package:celebrate_app/theme.dart';
 import 'package:celebrate_app/widget/button_primary.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SharePage extends StatefulWidget {
   final String title;
@@ -20,6 +22,8 @@ class SharePage extends StatefulWidget {
 }
 
 class _SharePageState extends State<SharePage> {
+  ScreenshotController screenshotController = ScreenshotController();
+
   @override
   Widget build(BuildContext context) {
     ContentProvider contentProvider = Provider.of<ContentProvider>(context);
@@ -111,15 +115,11 @@ class _SharePageState extends State<SharePage> {
             ),
             Expanded(
                 child: ButtonPrimary(
-              ontap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SharePage(
-                            title: contentProvider.titleContent,
-                            greeting: contentProvider.greetingContent,
-                            image: contentProvider
-                                .images[contentProvider.currentIndex])));
+              ontap: () async {
+                final image = await screenshotController.captureFromWidget(
+                    content());
+
+                Share.shareXFiles([XFile.fromData(image, mimeType: "png")]);
               },
               title: 'Share',
             )),
