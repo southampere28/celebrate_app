@@ -1,7 +1,9 @@
 import 'package:celebrate_app/provider/content_provider.dart';
 import 'package:celebrate_app/theme.dart';
 import 'package:celebrate_app/widget/button_primary.dart';
+import 'package:celebrate_app/widget/sharecontent_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
@@ -24,6 +26,40 @@ class SharePage extends StatefulWidget {
 class _SharePageState extends State<SharePage> {
   ScreenshotController screenshotController = ScreenshotController();
 
+  Color backgroundColorTheme = Colors.white;
+  Color cardColor = whiteBone;
+
+  // backgroundColorTheme
+  final List<Color> backgroundColors = [
+    Colors.white,
+    Colors.grey.shade200,
+    Colors.blue.shade50,
+    Colors.green.shade50,
+    Colors.pink.shade50,
+  ];
+
+  // cardColorTheme
+  final List<Color> cardColors = [
+    whiteBone,
+    Colors.grey.shade100,
+    Colors.blue.shade100,
+    Colors.green.shade100,
+    Colors.pink.shade100,
+  ];
+
+  // indexThemeList
+  int currentIndex = 0;
+
+  // functionChangeTheme
+  void changeTheme() {
+    setState(() {
+      // Ganti warna ke index berikutnya
+      currentIndex = (currentIndex + 1) % backgroundColors.length;
+      backgroundColorTheme = backgroundColors[currentIndex];
+      cardColor = cardColors[currentIndex];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     ContentProvider contentProvider = Provider.of<ContentProvider>(context);
@@ -35,7 +71,7 @@ class _SharePageState extends State<SharePage> {
             vertical: defaultMargin, horizontal: defaultMargin),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 24),
         decoration: BoxDecoration(
-            color: whiteBone,
+            color: cardColor,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
@@ -117,8 +153,15 @@ class _SharePageState extends State<SharePage> {
                 child: ButtonPrimary(
               ontap: () async {
                 final image = await screenshotController.captureFromWidget(
-                    content());
-
+                  SharecontentWidget(
+                    imageLink: widget.image,
+                    title: widget.title,
+                    greeting: widget.greeting,
+                    senderName: contentProvider.senderName,
+                    backgroundColorTheme: backgroundColorTheme,
+                    cardColor: cardColor,
+                  ),
+                );
                 Share.shareXFiles([XFile.fromData(image, mimeType: "png")]);
               },
               title: 'Share',
@@ -126,12 +169,19 @@ class _SharePageState extends State<SharePage> {
             const SizedBox(
               width: 12,
             ),
-            ClipOval(
-              child: Image.asset(
-                'assets/rainbow.jpg',
-                width: 40,
-                height: 40,
-                fit: BoxFit.cover,
+            GestureDetector(
+              onTap: () {
+                // logic changing color theme here
+                changeTheme();
+                Fluttertoast.showToast(msg: 'Tema telah diubah!');
+              },
+              child: ClipOval(
+                child: Image.asset(
+                  'assets/rainbow.jpg',
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(
@@ -143,7 +193,7 @@ class _SharePageState extends State<SharePage> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColorTheme,
       body: SafeArea(
         child: SizedBox(
           width: double.infinity,
