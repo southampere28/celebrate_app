@@ -1,3 +1,4 @@
+import 'package:celebrate_app/feedback_page.dart';
 import 'package:celebrate_app/provider/content_provider.dart';
 import 'package:celebrate_app/share_page.dart';
 import 'package:celebrate_app/theme.dart';
@@ -126,17 +127,30 @@ class _ContentPageState extends State<ContentPage> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
-              Icons.face_3_rounded,
+            const Icon(
+              Icons.music_note_rounded,
               color: primaryColor,
               size: 40,
             ),
-            SizedBox(
+            const SizedBox(
               width: 12,
             ),
             Expanded(
                 child: ButtonPrimary(
               ontap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const FeedBackPage()));
+              },
+              title: 'Berikutnya',
+              bgcolor: secondaryColor,
+            )),
+            const SizedBox(
+              width: 12,
+            ),
+            GestureDetector(
+              onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -146,15 +160,11 @@ class _ContentPageState extends State<ContentPage> {
                             image: contentProvider
                                 .images[contentProvider.currentIndex])));
               },
-              title: 'Berikutnya',
-            )),
-            SizedBox(
-              width: 12,
-            ),
-            Icon(
-              Icons.share,
-              color: primaryColor,
-              size: 40,
+              child: const Icon(
+                Icons.share,
+                color: primaryColor,
+                size: 40,
+              ),
             )
           ],
         ),
