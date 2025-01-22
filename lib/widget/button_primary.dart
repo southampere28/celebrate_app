@@ -5,8 +5,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 class ButtonPrimary extends StatelessWidget {
   final VoidCallback ontap;
   final String title;
+  final Color bgcolor;
 
-  const ButtonPrimary({super.key, required this.ontap, required this.title});
+  const ButtonPrimary(
+      {super.key,
+      required this.ontap,
+      required this.title,
+      required this.bgcolor});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,7 @@ class ButtonPrimary extends StatelessWidget {
       child: TextButton(
         onPressed: ontap,
         style: TextButton.styleFrom(
-            backgroundColor: secondaryColor,
+            backgroundColor: bgcolor,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12))),
         child: Text(
