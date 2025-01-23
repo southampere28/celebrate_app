@@ -2,6 +2,8 @@ import 'package:celebrate_app/theme.dart';
 import 'package:celebrate_app/widget/button_primary.dart';
 import 'package:celebrate_app/widget/formfield_desc.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FeedBackPage extends StatefulWidget {
   const FeedBackPage({super.key});
@@ -12,6 +14,11 @@ class FeedBackPage extends StatefulWidget {
 
 class _FeedBackPageState extends State<FeedBackPage> {
   final descController = TextEditingController();
+
+  Future<void> openWhatsApp(String phoneNumber, String text) async {
+    Uri url = Uri.parse('https://wa.me/$phoneNumber?text=$text');
+    await launchUrl(url);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +53,9 @@ class _FeedBackPageState extends State<FeedBackPage> {
               width: double.infinity,
               margin: const EdgeInsets.symmetric(horizontal: 10),
               child: ButtonPrimary(
-                ontap: () {},
+                ontap: () {
+                  // logic generate here
+                },
                 title: "Generate With AI",
                 bgcolor: primaryColor,
               ),
@@ -55,7 +64,13 @@ class _FeedBackPageState extends State<FeedBackPage> {
             SizedBox(
                 width: double.infinity,
                 child: ButtonPrimary(
-                  ontap: () {},
+                  ontap: () {
+                    if (descController.text != '') {
+                      openWhatsApp('+6287843580353', descController.text);
+                    } else {
+                      Fluttertoast.showToast(msg: 'Anda belum mengisi pesan!');
+                    }
+                  },
                   title: "Kirim Pesan",
                   bgcolor: primaryColor,
                 )),
