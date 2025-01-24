@@ -1,8 +1,12 @@
+import 'dart:developer';
+
+import 'package:celebrate_app/provider/response_provider.dart';
 import 'package:celebrate_app/theme.dart';
 import 'package:celebrate_app/widget/button_primary.dart';
 import 'package:celebrate_app/widget/formfield_desc.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FeedBackPage extends StatefulWidget {
@@ -15,13 +19,20 @@ class FeedBackPage extends StatefulWidget {
 class _FeedBackPageState extends State<FeedBackPage> {
   final descController = TextEditingController();
 
-  Future<void> openWhatsApp(String phoneNumber, String text) async {
+  Future<void> sendtoWhatsApp(String phoneNumber, String text) async {
     Uri url = Uri.parse('https://wa.me/$phoneNumber?text=$text');
+    await launchUrl(url);
+  }
+
+  Future<void> sendToWhatsApp2(String text) async {
+    Uri url = Uri.parse('https://wa.me/?text=$text');
     await launchUrl(url);
   }
 
   @override
   Widget build(BuildContext context) {
+    ResponseProvider responseProvider = Provider.of<ResponseProvider>(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -53,8 +64,12 @@ class _FeedBackPageState extends State<FeedBackPage> {
               width: double.infinity,
               margin: const EdgeInsets.symmetric(horizontal: 10),
               child: ButtonPrimary(
-                ontap: () {
+                ontap: () async {
                   // logic generate here
+                  Fluttertoast.showToast(msg: 'Generate Message');
+                  await responseProvider.generateResponse();
+                  log(responseProvider.response);
+                  descController.text = responseProvider.response;
                 },
                 title: "Generate With AI",
                 bgcolor: primaryColor,
@@ -66,7 +81,8 @@ class _FeedBackPageState extends State<FeedBackPage> {
                 child: ButtonPrimary(
                   ontap: () {
                     if (descController.text != '') {
-                      openWhatsApp('+6287843580353', descController.text);
+                      // sendtoWhatsApp('+6287843580353', descController.text);
+                      sendToWhatsApp2(descController.text);
                     } else {
                       Fluttertoast.showToast(msg: 'Anda belum mengisi pesan!');
                     }
