@@ -1,14 +1,18 @@
-import 'package:celebrate_app/cobacoba/page_listview.dart';
-import 'package:celebrate_app/cobacoba/page_scaffold.dart';
+import 'dart:developer';
+
 import 'package:celebrate_app/content_page.dart';
+import 'package:celebrate_app/feedback_page.dart';
 import 'package:celebrate_app/provider/content_provider.dart';
+import 'package:celebrate_app/provider/response_provider.dart';
 import 'package:celebrate_app/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// generative ai gemini import
+import 'package:google_generative_ai/google_generative_ai.dart';
+
 void main() {
-  runApp(const MyApp(
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -19,16 +23,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => ContentProvider()..loadJsonData()),
+        ChangeNotifierProvider(
+            create: (context) => ContentProvider()..loadJsonData(),),
+        ChangeNotifierProvider(
+            create: (context) => ResponseProvider()),
       ],
       child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Celebrate App',
           debugShowCheckedModeBanner: true,
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: ContentPage()),
+          home: const FeedBackPage()),
     );
   }
 }
