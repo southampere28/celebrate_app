@@ -164,7 +164,7 @@ class _SharePageState extends State<SharePage> {
                 );
                 Share.shareXFiles([XFile.fromData(image, mimeType: "png")]);
               },
-              title: 'Share',
+              title: 'Share', bgcolor: secondaryColor,
             )),
             const SizedBox(
               width: 12,
