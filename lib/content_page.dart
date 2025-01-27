@@ -47,8 +47,8 @@ class _ContentPageState extends State<ContentPage> {
                 contentProvider.updateContent(index);
               },
             ),
-            items: contentProvider.images
-                .map((image) => Container(
+            items: contentProvider.contentList
+                .map((item) => Container(
                       width: MediaQuery.of(context).size.width,
                       margin: EdgeInsets.symmetric(
                           horizontal:
@@ -56,7 +56,7 @@ class _ContentPageState extends State<ContentPage> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: Image.asset(
-                          image,
+                          item['image'],
                           height: 233,
                           fit: BoxFit.cover,
                         ),
@@ -69,7 +69,7 @@ class _ContentPageState extends State<ContentPage> {
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: contentProvider.images
+              children: contentProvider.contentList
                   .asMap()
                   .entries
                   .map((entry) => indicator(entry.key))
@@ -99,14 +99,14 @@ class _ContentPageState extends State<ContentPage> {
             child: Column(
               children: [
                 Text(
-                  contentProvider.titleContent,
+                  contentProvider.currentTitle,
                   style: titleTextStyle.copyWith(fontSize: 18),
                 ),
                 const SizedBox(
                   height: 26,
                 ),
                 Text(
-                  contentProvider.greetingContent,
+                  contentProvider.currentGreeting,
                   style: primaryTextStyle.copyWith(fontSize: 12),
                 ),
               ],
@@ -155,10 +155,10 @@ class _ContentPageState extends State<ContentPage> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => SharePage(
-                            title: contentProvider.titleContent,
-                            greeting: contentProvider.greetingContent,
+                            title: contentProvider.currentTitle,
+                            greeting: contentProvider.currentGreeting,
                             image: contentProvider
-                                .images[contentProvider.currentIndex])));
+                                .currentImage)));
               },
               child: const Icon(
                 Icons.share,
