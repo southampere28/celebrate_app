@@ -88,7 +88,7 @@ class _SharePageState extends State<SharePage> {
               ),
             ),
             const SizedBox(
-              height: 30,
+              height: 16,
             ),
             Padding(
               padding: const EdgeInsets.all(12),
@@ -98,7 +98,7 @@ class _SharePageState extends State<SharePage> {
               ),
             ),
             const SizedBox(
-              height: 26,
+              height: 12,
             ),
             Padding(
               padding: const EdgeInsets.all(12),
@@ -164,7 +164,8 @@ class _SharePageState extends State<SharePage> {
                 );
                 Share.shareXFiles([XFile.fromData(image, mimeType: "png")]);
               },
-              title: 'Share', bgcolor: secondaryColor,
+              title: 'Share',
+              bgcolor: secondaryColor,
             )),
             const SizedBox(
               width: 12,
