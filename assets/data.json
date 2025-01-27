@@ -1,8 +1,17 @@
-{
-    "title1" : "Happy Birthday to You",
-    "title2" : "Happy Birthday to You2",
-    "title3" : "Happy Birthday to You3",
-    "greeting1" : "Di pagi yang cerah, burung elang terbang tinggi di atas awan, menembus angin yang lembut. Di bawahnya, sawah hijau terbentang luas, seolah tanpa batas. Pohon kelapa yang tinggi berayun pelan, sementara suara riang anak-anak terdengar dari kejauhan. Di tepi sungai, batu-batu besar terendam air yang jernih, dan ikan-ikan kecil berenang dengan lincah. Tanah yang basah mengeluarkan aroma segar"
-    ,"greeting2" : "ini greeting 2",
-    "greeting3" : "ini greeting 3"
-}
+[
+    {
+        "title": "Happy Birthday!",
+        "greeting": "Semoga hari ulang tahunmu menjadi awal dari babak baru yang penuh dengan keajaiban dan keberkahan. Dalam setiap langkahmu ke depan, semoga selalu ada kebahagiaan yang menyertai, cinta yang menghangatkan hati, dan kesuksesan yang setia menemani. Ingatlah bahwa setiap detik hari ini adalah milikmu untuk dirayakan sepenuh hati, jadi nikmati setiap momen dengan senyuman yang paling indah dan semangat yang tak pernah pudar!"
+        ,"image": "assets/sample.jpg"
+    },
+    {
+        "title": "Wishing You Joy!",
+        "greeting": "Selamat ulang tahun! Di hari yang istimewa ini, semoga setiap mimpi yang kamu simpan dalam hati mulai terwujud satu per satu. Dunia ini lebih cerah karena kehadiranmu, dan semoga setiap hari di tahun mendatang penuh dengan peluang yang luar biasa, kebahagiaan yang tak terukur, serta cinta dari semua orang yang peduli padamu. Jangan lupa untuk bersyukur atas semua anugerah yang telah kamu terima dan teruslah melangkah dengan penuh percaya diri!"
+        ,"image": "assets/sample2.jpg"
+    },
+    {
+        "title": "Celebrate Your Day!",
+        "greeting": "Hari ini adalah hari yang paling spesial untukmu! Semoga setiap tawa yang kamu bagikan hari ini membawa kebahagiaan tak berujung, dan setiap doa yang dipanjatkan untukmu menjadi kenyataan. Hidup ini adalah perjalanan yang indah, dan kamu layak mendapatkan segala yang terbaik di dalamnya. Mari rayakan hari ini dengan penuh suka cita, bersama keluarga, teman-teman, dan semua orang yang menyayangimu. Semoga tahun ini menjadi tahun yang penuh makna dan keberhasilan luar biasa!"
+        ,"image": "assets/sample.jpg"
+    }
+]
