@@ -45,6 +45,8 @@ dependencies:
   screenshot: ^2.1.1
   google_generative_ai: ^0.4.6
   url_launcher: ^6.3.0
+  image_picker: ^0.8.4+2
+  path: ^1.8.3
 
 dev_dependencies:
   flutter_test:
