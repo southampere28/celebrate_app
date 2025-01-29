@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:celebrate_app/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -8,13 +10,20 @@ class SharecontentWidget extends StatelessWidget {
   final String senderName;
   final Color backgroundColorTheme;
   final Color cardColor;
+  final bool isFromSharePage;
+  String senderImage;
 
-  const SharecontentWidget(
-      {super.key,
-      required this.imageLink,
-      required this.title,
-      required this.greeting,
-      required this.senderName, required this.backgroundColorTheme, required this.cardColor});
+  SharecontentWidget({
+    super.key,
+    required this.imageLink,
+    required this.title,
+    required this.greeting,
+    required this.senderName,
+    required this.backgroundColorTheme,
+    required this.cardColor,
+    this.isFromSharePage = false,
+    this.senderImage = ""
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +50,17 @@ class SharecontentWidget extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(30),
-                child: Image.asset(
-                  imageLink,
-                  height: 213,
-                  fit: BoxFit.cover,
-                ),
+                child: isFromSharePage
+                    ? Image.file(
+                        File(imageLink),
+                        height: 213,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset(
+                        imageLink,
+                        height: 213,
+                        fit: BoxFit.cover,
+                      ),
               ),
               const SizedBox(
                 height: 30,
@@ -77,10 +92,19 @@ class SharecontentWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.person,
-                    size: 17,
-                  ),
+                  isFromSharePage
+                      ? ClipOval(
+                          child: Image.file(
+                            File(senderImage),
+                            height: 17,
+                            width: 17,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : const Icon(
+                          Icons.person,
+                          size: 17,
+                        ),
                   const SizedBox(
                     width: 6,
                   ),
