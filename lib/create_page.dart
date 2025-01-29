@@ -1,10 +1,17 @@
+import 'dart:io';
+
 import 'package:celebrate_app/theme.dart';
 import 'package:celebrate_app/widget/formfield_desc.dart';
 import 'package:celebrate_app/widget/formfield_text.dart';
 import 'package:celebrate_app/widget/sharecontent_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:path/path.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:path_provider/path_provider.dart' as p;
+import 'package:image_picker/image_picker.dart';
 
 class CreatePage extends StatefulWidget {
   const CreatePage({super.key});
@@ -23,8 +30,51 @@ class _CreatePageState extends State<CreatePage> {
   Color backgroundColorTheme = Colors.white;
   Color cardColor = whiteBone;
 
+  File? _imageFile;
+  String? _imagePath;
+  File? _imageFileSender;
+  String? _senderImagePath;
+
   @override
   Widget build(BuildContext context) {
+    Future<void> pickImage() async {
+      try {
+        final image =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
+
+        if (image == null) return;
+
+        final imageTemporary = File(image.path);
+
+        setState(() {
+          _imageFile = imageTemporary;
+          _imagePath = _imageFile!.path;
+          Fluttertoast.showToast(msg: 'Success Set Image');
+        });
+      } on PlatformException catch (e) {
+        Fluttertoast.showToast(msg: 'failed pick image $e');
+      }
+    }
+
+    Future<void> pickImageSender() async {
+      try {
+        final image =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
+
+        if (image == null) return;
+
+        final imageTemporary = File(image.path);
+
+        setState(() {
+          _imageFileSender = imageTemporary;
+          _senderImagePath = _imageFileSender!.path;
+          Fluttertoast.showToast(msg: 'Success Set Image');
+        });
+      } on PlatformException catch (e) {
+        Fluttertoast.showToast(msg: 'failed pick image $e');
+      }
+    }
+
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
@@ -44,6 +94,18 @@ class _CreatePageState extends State<CreatePage> {
               children: [
                 const SizedBox(
                   height: 50,
+                ),
+                TextButton(
+                    style: TextButton.styleFrom(backgroundColor: primaryColor),
+                    onPressed: () {
+                      pickImage();
+                    },
+                    child: Text(
+                      'Pick Image',
+                      style: primaryTextStyle.copyWith(fontSize: 20),
+                    )),
+                const SizedBox(
+                  height: 20,
                 ),
                 FormfieldText(
                     controller: titleController,
@@ -70,6 +132,18 @@ class _CreatePageState extends State<CreatePage> {
                 const SizedBox(
                   height: 20,
                 ),
+                TextButton(
+                    style: TextButton.styleFrom(backgroundColor: primaryColor),
+                    onPressed: () {
+                      pickImageSender();
+                    },
+                    child: Text(
+                      'Pick Image',
+                      style: primaryTextStyle.copyWith(fontSize: 20),
+                    )),
+                const SizedBox(
+                  height: 20,
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -88,12 +162,14 @@ class _CreatePageState extends State<CreatePage> {
                           final image =
                               await screenshotController.captureFromWidget(
                             SharecontentWidget(
-                              imageLink: "assets/sample.jpg",
+                              imageLink: _imagePath!,
                               title: titleController.text,
                               greeting: greetingController.text,
                               senderName: senderController.text,
                               backgroundColorTheme: backgroundColorTheme,
                               cardColor: cardColor,
+                              isFromSharePage: true,
+                              senderImage: _senderImagePath!,
                             ),
                           );
                           Share.shareXFiles(
