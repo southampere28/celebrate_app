@@ -81,7 +81,7 @@ class _CreatePageState extends State<CreatePage> {
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
-            'Tambah Data',
+            'Create Card',
             style: TextStyle(fontSize: 20),
           ),
         ),
@@ -90,20 +90,69 @@ class _CreatePageState extends State<CreatePage> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
-                TextButton(
-                    style: TextButton.styleFrom(backgroundColor: primaryColor),
-                    onPressed: () {
-                      pickImage();
-                    },
-                    child: Text(
-                      'Pick Image',
-                      style: primaryTextStyle.copyWith(fontSize: 20),
-                    )),
+                _imageFile != null
+                    ? Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.file(
+                              _imageFile!,
+                              width: 300,
+                              height: 168,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                                backgroundColor: bgLtTransparentColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6))),
+                            onPressed: () {
+                              pickImage();
+                            },
+                            child: Text(
+                              'Change Image',
+                              style: blackTextStyle.copyWith(
+                                  fontWeight: regular,
+                                  color: Colors.black.withOpacity(0.5)),
+                            ),
+                          )
+                        ],
+                      )
+                    : GestureDetector(
+                        onTap: () {
+                          pickImage();
+                        },
+                        child: Container(
+                          width: 300,
+                          height: 168,
+                          decoration: BoxDecoration(
+                              color: whiteCOlor,
+                              border: Border.all(color: primaryColor, width: 3),
+                              borderRadius: BorderRadius.circular(12)),
+                          child: const Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add_a_photo_outlined,
+                                  size: 40,
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text('Tambahkan Gambar Konten')
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -128,19 +177,78 @@ class _CreatePageState extends State<CreatePage> {
                     icon: null,
                     keyType: TextInputType.text,
                     labelField: 'Pengirim',
-                    hintTxt: "(tuliskan nama kamu / nama samaran disini)"),
+                    hintTxt: "(tuliskan nama anda)"),
                 const SizedBox(
                   height: 20,
                 ),
-                TextButton(
-                    style: TextButton.styleFrom(backgroundColor: primaryColor),
-                    onPressed: () {
-                      pickImageSender();
-                    },
-                    child: Text(
-                      'Pick Image',
-                      style: primaryTextStyle.copyWith(fontSize: 20),
-                    )),
+                // TextButton(
+                //     style: TextButton.styleFrom(backgroundColor: primaryColor),
+                //     onPressed: () {
+                //       pickImageSender();
+                //     },
+                //     child: Text(
+                //       'Pick Image',
+                //       style: primaryTextStyle.copyWith(fontSize: 20),
+                //     )),
+                _imageFileSender != null
+                    ? Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.file(
+                              _imageFileSender!,
+                              width: 168,
+                              height: 168,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                                backgroundColor: bgLtTransparentColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6))),
+                            onPressed: () {
+                              pickImageSender();
+                            },
+                            child: Text(
+                              'Change Image',
+                              style: blackTextStyle.copyWith(
+                                  fontWeight: regular,
+                                  color: Colors.black.withOpacity(0.5)),
+                            ),
+                          )
+                        ],
+                      )
+                    : GestureDetector(
+                        onTap: () {
+                          pickImageSender();
+                        },
+                        child: Container(
+                          width: 168,
+                          height: 168,
+                          decoration: BoxDecoration(
+                              color: whiteCOlor,
+                              border: Border.all(color: primaryColor, width: 3),
+                              borderRadius: BorderRadius.circular(12)),
+                          child: const Center(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add_a_photo_outlined,
+                                  size: 40,
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text('Foto Pengirim')
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                 const SizedBox(
                   height: 20,
                 ),
