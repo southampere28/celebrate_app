@@ -20,15 +20,15 @@ class FormfieldText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller, // use the controller to fill the text field
+      controller: controller,
       keyboardType: keyType,
+      style: blackTextStyle.copyWith(fontSize: 14),
       decoration: InputDecoration(
         hintText: hintTxt,
-        hintStyle: subtitleTextStyle,
+        hintStyle: subtitleTextStyle.copyWith(fontSize: 14),
         labelText: labelField,
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        labelStyle: blackTextStyle
-            .copyWith(fontSize: 16, fontWeight: bold),
+        labelStyle: blackTextStyle.copyWith(fontSize: 16, fontWeight: bold),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),

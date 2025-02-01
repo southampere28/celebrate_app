@@ -7,10 +7,12 @@ const Color primaryColor = Color(0xffA66DD7);
 const Color secondaryColor = Color(0xffD76DB8);
 const Color alertColor = Color(0xffED6363);
 const Color priceColor = Color(0xff2C96F1);
+const Color hyperlinkColor = Color(0xff0A66C2);
 const Color primaryTextColor = Color(0xff000000);
 const Color secondaryTextColor = Color(0xff999999);
 const Color shadowColor = Color(0xffB7A1D3);
 const Color c4Color = Color(0xffC4C4C4);
+const Color bgLtTransparentColor = Color.fromARGB(100, 196, 196, 196);
 const Color whiteBone = Color(0xffF1F1F1);
 const Color blackColor = Colors.black;
 const Color whiteCOlor = Colors.white;
@@ -22,6 +24,10 @@ TextStyle titleTextStyle = GoogleFonts.pacifico(
 
 TextStyle primaryTextStyle = GoogleFonts.nunito(
   color: primaryTextColor,
+);
+
+TextStyle hyperlinkTextStyle = GoogleFonts.nunito(
+  color: hyperlinkColor,
 );
 
 TextStyle buttonTextStyle = GoogleFonts.poppins(color: whiteBone);

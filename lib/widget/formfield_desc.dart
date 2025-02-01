@@ -19,11 +19,11 @@ class FormFieldDeskripsi extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.text,
-      style: primaryTextStyle.copyWith(fontSize: 14, fontWeight: regular),
+      style: blackTextStyle.copyWith(fontSize: 14),
       decoration: InputDecoration(
         hintText: hinTxt,
         labelText: labelField,
-        hintStyle: primaryTextStyle.copyWith(fontSize: 14, fontWeight: regular),
+        hintStyle: subtitleTextStyle.copyWith(fontSize: 14),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelStyle: primaryTextStyle.copyWith(fontSize: 20, fontWeight: bold),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
