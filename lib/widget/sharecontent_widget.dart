@@ -13,17 +13,16 @@ class SharecontentWidget extends StatelessWidget {
   final bool isFromSharePage;
   String senderImage;
 
-  SharecontentWidget({
-    super.key,
-    required this.imageLink,
-    required this.title,
-    required this.greeting,
-    required this.senderName,
-    required this.backgroundColorTheme,
-    required this.cardColor,
-    this.isFromSharePage = false,
-    this.senderImage = ""
-  });
+  SharecontentWidget(
+      {super.key,
+      required this.imageLink,
+      required this.title,
+      required this.greeting,
+      required this.senderName,
+      required this.backgroundColorTheme,
+      required this.cardColor,
+      this.isFromSharePage = false,
+      this.senderImage = ""});
 
   @override
   Widget build(BuildContext context) {
@@ -36,32 +35,35 @@ class SharecontentWidget extends StatelessWidget {
         child: Container(
           // widget sharecontent here
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 24),
+          padding:
+              const EdgeInsets.only(left: 10, right: 10, bottom: 24, top: 20),
           decoration: BoxDecoration(
               color: cardColor,
               borderRadius: BorderRadius.circular(20),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
-                    color: shadowColor,
-                    blurRadius: 8,
-                    offset: const Offset(2, 8))
+                    color: shadowColor, blurRadius: 8, offset: Offset(2, 8))
               ]),
           child: Column(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: isFromSharePage
-                    ? Image.file(
-                        File(imageLink),
-                        height: 213,
-                        fit: BoxFit.cover,
-                      )
-                    : Image.asset(
-                        imageLink,
-                        height: 213,
-                        fit: BoxFit.cover,
-                      ),
-              ),
+              LayoutBuilder(builder: (context, constraints) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: isFromSharePage
+                      ? Image.file(
+                          File(imageLink),
+                          width: constraints.maxWidth,
+                          height: constraints.maxWidth * (2 / 3),
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          imageLink,
+                          width: constraints.maxWidth,
+                          height: constraints.maxWidth * (2 / 3),
+                          fit: BoxFit.cover,
+                        ),
+                );
+              }),
               const SizedBox(
                 height: 30,
               ),
@@ -73,13 +75,14 @@ class SharecontentWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 26,
+                height: 16,
               ),
               Padding(
                 padding: const EdgeInsets.all(12),
                 child: Text(
                   greeting,
                   style: primaryTextStyle.copyWith(fontSize: 12),
+                  textAlign: TextAlign.justify,
                 ),
               ),
               const Spacer(),
