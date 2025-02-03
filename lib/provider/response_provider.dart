@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +27,9 @@ class ResponseProvider with ChangeNotifier {
       _response = generatedResponse.text ?? 'No message found';
       // log(generatedResponse.text ?? 'no response');
     } catch (e) {
-      _response = 'Error: $e';
+      Fluttertoast.showToast(
+          msg:
+              'Cannot Generate Message, Please check your Internet Connection');
     } finally {
       _isLoading = false;
       notifyListeners();
