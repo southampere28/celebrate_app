@@ -5,9 +5,8 @@ import 'package:celebrate_app/theme.dart';
 import 'package:celebrate_app/widget/button_primary.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:provider/provider.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class ContentPage extends StatefulWidget {
   const ContentPage({super.key});
@@ -17,6 +16,8 @@ class ContentPage extends StatefulWidget {
 }
 
 class _ContentPageState extends State<ContentPage> {
+  final player = AudioPlayer();
+
   @override
   Widget build(BuildContext context) {
     ContentProvider contentProvider = Provider.of<ContentProvider>(context);
@@ -127,10 +128,15 @@ class _ContentPageState extends State<ContentPage> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.music_note_rounded,
-              color: primaryColor,
-              size: 40,
+            GestureDetector(
+              onTap: () {
+                player.play(AssetSource('assets/happybirthdaysong.mp3'));
+              },
+              child: const Icon(
+                Icons.music_note_rounded,
+                color: primaryColor,
+                size: 40,
+              ),
             ),
             const SizedBox(
               width: 12,
@@ -157,8 +163,7 @@ class _ContentPageState extends State<ContentPage> {
                         builder: (context) => SharePage(
                             title: contentProvider.currentTitle,
                             greeting: contentProvider.currentGreeting,
-                            image: contentProvider
-                                .currentImage)));
+                            image: contentProvider.currentImage)));
               },
               child: const Icon(
                 Icons.share,
