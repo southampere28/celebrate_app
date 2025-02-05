@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:celebrate_app/create_page.dart';
 import 'package:celebrate_app/provider/response_provider.dart';
 import 'package:celebrate_app/theme.dart';
 import 'package:celebrate_app/widget/button_primary.dart';
@@ -75,13 +75,36 @@ class _FeedBackPageState extends State<FeedBackPage> {
                 bgcolor: primaryColor,
               ),
             ),
+            const SizedBox(
+              height: 8,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Ingin membuat kartu ucapan sendiri? ',
+                  style: blackTextStyle.copyWith(fontSize: 12),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CreatePage()));
+                  },
+                  child: Text(
+                    'Klik di sini',
+                    style: hyperlinkTextStyle.copyWith(fontSize: 12),
+                  ),
+                )
+              ],
+            ),
             const Spacer(),
             SizedBox(
                 width: double.infinity,
                 child: ButtonPrimary(
                   ontap: () {
                     if (descController.text != '') {
-                      // sendtoWhatsApp('+6287843580353', descController.text);
                       sendToWhatsApp2(descController.text);
                     } else {
                       Fluttertoast.showToast(msg: 'Anda belum mengisi pesan!');
