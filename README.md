@@ -36,6 +36,8 @@ Example Input Create Card             |  Result Create Card
 - provider
 - url_launcher
 - carousel_slider
+- audioplayers
+- google_generative_ai
 - share_plus
 
 ## Run Locally
