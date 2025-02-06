@@ -16,7 +16,57 @@ class ContentPage extends StatefulWidget {
 }
 
 class _ContentPageState extends State<ContentPage> {
-  final player = AudioPlayer();
+  late AudioPlayer player = AudioPlayer();
+  bool isPlaying = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Create the audio player.
+    player = AudioPlayer();
+
+    // Set the release mode to keep the source after playback has completed.
+    player.setReleaseMode(ReleaseMode.stop);
+
+    player.onPlayerComplete.listen((event) {
+      setState(() {
+        isPlaying = false;
+      });
+    });
+
+    // Start the player as soon as the app is displayed.
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await player.setSource(AssetSource('happybirthdaysong.mp3'));
+      await player.resume();
+    });
+    setState(() {
+      isPlaying = true;
+    });
+  }
+
+  @override
+  void dispose() {
+    // Release all sources and dispose the player.
+    player.dispose();
+
+    super.dispose();
+  }
+
+  Future<void> _play() async {
+    await player.resume();
+    setState(() {
+      isPlaying = true;
+    });
+  }
+
+  Future<void> _pause() async {
+    await player.pause();
+    setState(() {
+      
+    isPlaying = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,10 +180,11 @@ class _ContentPageState extends State<ContentPage> {
           children: [
             GestureDetector(
               onTap: () {
-                player.play(AssetSource('assets/happybirthdaysong.mp3'));
+                isPlaying ? _pause() : _play();
+                // player.play(AssetSource('assets/happybirthdaysong.mp3'));
               },
-              child: const Icon(
-                Icons.music_note_rounded,
+              child: Icon(
+                isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
                 color: primaryColor,
                 size: 40,
               ),
@@ -144,10 +195,7 @@ class _ContentPageState extends State<ContentPage> {
             Expanded(
                 child: ButtonPrimary(
               ontap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const FeedBackPage()));
+                Navigator.pushNamed(context, '/feedback-page');
               },
               title: 'Berikutnya',
               bgcolor: secondaryColor,
