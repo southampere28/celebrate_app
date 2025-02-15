@@ -1,17 +1,10 @@
-import 'dart:developer';
-
 import 'package:celebrate_app/content_page.dart';
 import 'package:celebrate_app/create_page.dart';
 import 'package:celebrate_app/feedback_page.dart';
 import 'package:celebrate_app/provider/content_provider.dart';
 import 'package:celebrate_app/provider/response_provider.dart';
-import 'package:celebrate_app/share_page.dart';
-import 'package:celebrate_app/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-// generative ai gemini import
-import 'package:google_generative_ai/google_generative_ai.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +27,7 @@ class MyApp extends StatelessWidget {
           title: 'Celebrate App',
           debugShowCheckedModeBanner: false,
           routes: {
-            '/': (context) => const SplashPage(),
+            '/': (context) => const ContentPage(),
             '/content': (context) => const ContentPage(),
             '/feedback-page': (context) => const FeedBackPage(),
             '/create-page': (context) => const CreatePage(),
@@ -42,8 +35,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
-          ),
-          home: const ContentPage()),
+          ),),
     );
   }
 }
