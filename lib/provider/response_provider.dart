@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:celebrate_app/apikey.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class ResponseProvider with ChangeNotifier {
     try {
       final model = GenerativeModel(
           model: 'gemini-1.5-flash-latest',
-          apiKey: "AIzaSyBBEeB2YB3g8qOHjID88_OZH4tPEnnTeFA");
+          apiKey: apiKey);
       final content = [Content.text(prompt)];
       final generatedResponse = await model.generateContent(content);
 
